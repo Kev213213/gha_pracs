@@ -22,8 +22,8 @@ jobs:
           echo "actor is:" ${{ github.actor}}
           echo "ref is:" ${{ github.ref}}
 
-  run_py:
-    name: run python
+  run_py_release:
+    name: test and release
     runs-on: ubuntu-latest
     needs: [run_check]
     if: github.event_name == 'push'
@@ -33,3 +33,49 @@ jobs:
         with:
           python-version: '3.10'
       - run: python say_hello.py 
+
+      - name: generate release
+        uses: codfish/semantic-release-action@v3.1.0
+        with:
+          additional-packages: |
+            [
+              'conventional-changelog-conventionalcommits@7'
+            ]
+          plugins: |
+            [
+              [
+                '@semantic-release/commit-analyzer',
+                {
+                  'preset': 'conventionalcommits',
+                  'releaseRules': [
+                      { breaking: true,       release: "major" },
+                      { revert:   true,       release: "patch" },
+                      { type:     'feat',     release: 'minor' },
+                      { type:     'bug',      release: 'patch' }
+                  ],
+                  'parserOpts': {
+                    noteKeywords: ['BREAKING CHANGE', 'BREAKING CHANGES']
+                  }
+                }
+              ],
+              [
+                '@semantic-release/release-notes-generator',
+                {
+                  'preset': 'conventionalcommits',
+                  'presetConfig': {
+                    'types': [
+                      { type: 'feat',     section: 'Features',                 hidden: false },
+                      { type: 'bug',      section: 'Bug Fixes',                hidden: false }
+                    ]
+                  },
+                  'linkCompare': true,
+                  'linkReferences': true
+                }
+              ],
+              [
+                '@semantic-release/github',
+                {
+                  'draftRelease': false
+                }
+              ]
+            ]
