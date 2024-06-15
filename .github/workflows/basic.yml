@@ -16,5 +16,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Just sayin hi
     steps:
-      - run: echo "Hello actions!!"
+      - run: |
+          echo "Hello actions!!"
+          echo "event is:" ${{ github.event}}
+          echo "actor is:" ${{ github.actor}}
+          echo "ref is:" ${{ github.ref}}
      
