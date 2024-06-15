@@ -24,6 +24,7 @@ jobs:
 
   run_py:
     name: run python
+    runs-on: ubuntu-latest
     needs: [run_check]
     if: github.event_name == 'push'
     steps:
