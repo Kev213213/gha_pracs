@@ -1,0 +1,20 @@
+name: create tag
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+    branches:
+      - 'feature/gh-release-main'
+  push:
+    branches:
+      - 'feature/gh-release-main'
+
+jobs:
+  run_check:
+    runs-on: ubuntu-latest
+    name: Just sayin hi
+    steps:
+      - run: echo "Hello actions!!"
+     
