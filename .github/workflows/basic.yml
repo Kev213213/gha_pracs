@@ -37,6 +37,7 @@ jobs:
       - name: generate release
         uses: codfish/semantic-release-action@v3.1.0
         with:
+          branches: ["feature/gh-release-main"]
           additional-packages: |
             [
               'conventional-changelog-conventionalcommits@7'
