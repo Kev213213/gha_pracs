@@ -21,4 +21,14 @@ jobs:
           echo "event is:" ${{ github.event}}
           echo "actor is:" ${{ github.actor}}
           echo "ref is:" ${{ github.ref}}
-     
+
+  run_py:
+    name: run python
+    needs: [run_check]
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - run: python say_hello.py 
