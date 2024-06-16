@@ -38,6 +38,7 @@ jobs:
       - name: generate release
         uses: codfish/semantic-release-action@v3.1.0
         with:
+          tag-format: k-v${version}
           branches: |
             [
               'feature/gh-release-main'
