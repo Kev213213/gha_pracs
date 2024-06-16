@@ -5,10 +5,10 @@ def func(msg: str = "Hello World")->None:
     args: msg
     returns : None
     """
-    print("="+30)
+    print("="*30)
     print(msg)
-    print("="+30)
+    print("="*30)
 
 if __name__=="__main__":
     func()
-    
+
