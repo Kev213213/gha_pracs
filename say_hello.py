@@ -11,3 +11,4 @@ def func(msg: str = "Hello World")->None:
 
 if __name__=="__main__":
     func()
+    
